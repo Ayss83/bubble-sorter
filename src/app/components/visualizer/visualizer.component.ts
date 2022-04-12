@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-visualizer',
@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./visualizer.component.scss']
 })
 export class VisualizerComponent implements OnInit {
+  @Input() elementList!: number[];
 
   constructor() { }
 

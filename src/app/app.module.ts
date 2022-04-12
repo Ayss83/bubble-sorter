@@ -8,8 +8,10 @@ import { FormComponent } from './components/form/form.component';
 import { ChipsContainerComponent } from './components/chips-container/chips-container.component';
 import { VisualizerComponent } from './components/visualizer/visualizer.component';
 
+
 import { MatButtonModule } from "@angular/material/button";
 import { MatInputModule } from "@angular/material/input";
+import { MatChipsModule } from "@angular/material/chips";
 
 @NgModule({
   declarations: [
@@ -24,7 +26,8 @@ import { MatInputModule } from "@angular/material/input";
     ReactiveFormsModule,
     FormsModule,
     MatButtonModule,
-    MatInputModule
+    MatInputModule,
+    MatChipsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

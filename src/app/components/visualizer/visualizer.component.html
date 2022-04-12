@@ -1,1 +1,7 @@
-<p>visualizer works!</p>
+<div>
+  <div
+    *ngFor="let element of elementList"
+    class="bar"
+    [ngStyle]="{ 'height.px': element }"
+  ></div>
+</div>
