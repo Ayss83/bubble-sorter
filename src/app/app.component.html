@@ -1,7 +1,9 @@
+<h1>Bubble sorter</h1>
+
 <app-form (onPopulateRequest)="populateElements($event)"></app-form>
 
-<app-chips-container></app-chips-container>
+<app-chips-container [elementList]="elementList"></app-chips-container>
 
-<button type="button" mat-stroked-button color="primary">Start sorting</button>
+<button type="button" mat-stroked-button color="primary" (click)="bubbleSorter()">Start sorting</button>
 
-<app-visualizer></app-visualizer>
+<app-visualizer [elementList]="elementList"></app-visualizer>

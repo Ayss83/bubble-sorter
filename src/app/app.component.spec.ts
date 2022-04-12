@@ -47,5 +47,17 @@ describe('AppComponent', () => {
 
       expect(createResult.length).toBe(40);
     });
-  })
+  });
+
+  describe("bubbleSorter", () => {
+    it("should sort elementList array in place", () => {
+      component.elementList = [5,6,7,2,4,10,1];
+      const backupList = component.elementList;
+
+      component.bubbleSorter();
+
+      expect(backupList).toBe(component.elementList);
+      expect(component.elementList).toEqual([1,2,4,5,6,7,10]);
+    });
+  });
 });
