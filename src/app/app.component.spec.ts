@@ -1,4 +1,5 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 
 describe('AppComponent', () => {
@@ -7,9 +8,8 @@ describe('AppComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [
-        AppComponent
-      ],
+      declarations: [AppComponent],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents();
   });
 
@@ -25,8 +25,8 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  describe("populateElements", () => {
-    it("should set elementList property with an array of length matching received parameter", () => {
+  describe('populateElements', () => {
+    it('should set elementList property with an array of length matching received parameter', () => {
       component.elementList = [];
 
       component.populateElements(15);
@@ -35,29 +35,32 @@ describe('AppComponent', () => {
     });
   });
 
-  describe("createElements", () => {
-    it("should return an array numbers", () => {
+  describe('createElements', () => {
+    it('should return an array of numbers', () => {
       const createResult = component.createElements(18);
 
-      expect(createResult.every(element => typeof element === "number")).toBeTrue();
+      expect(
+        createResult.every((element) => typeof element === 'number')
+      ).toBeTrue();
     });
 
-    it("should return an array of length corresponding to received parameter", () => {
+    it('should return an array of length corresponding to received parameter', () => {
       const createResult = component.createElements(40);
 
       expect(createResult.length).toBe(40);
     });
   });
 
-  describe("bubbleSorter", () => {
-    it("should sort elementList array in place", () => {
-      component.elementList = [5,6,7,2,4,10,1];
+  describe('bubbleSorter', () => {
+    it('should sort elementList array in place', fakeAsync(() => {
+      component.elementList = [5, 6, 7, 2, 4, 10, 1];
       const backupList = component.elementList;
 
       component.bubbleSorter();
 
+      tick(1000);
       expect(backupList).toBe(component.elementList);
-      expect(component.elementList).toEqual([1,2,4,5,6,7,10]);
-    });
+      expect(component.elementList).toEqual([1, 2, 4, 5, 6, 7, 10]);
+    }));
   });
 });

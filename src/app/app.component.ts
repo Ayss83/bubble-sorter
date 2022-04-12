@@ -22,21 +22,30 @@ export class AppComponent {
     return result;
   }
 
-  bubbleSorter() {
-    let isSorted = false;
-    let counter = 0;
+  bubbleSorter = (counter = 0) => {
+    let isSorted = true;
 
-    while (!isSorted) {
-      isSorted = true;
-      for (let i = 0; i < this.elementList.length - 1 - counter; i++) {
-        if (this.elementList[i] > this.elementList[i + 1]) {
-          const swapBuffer = this.elementList[i];
-          this.elementList[i] = this.elementList[i + 1];
-          this.elementList[i + 1] = swapBuffer;
-          isSorted = false;
-        }
+    for (let i = 0; i < this.elementList.length - 1 - counter; i++) {
+      const swapNeeded = this.elementList[i] > this.elementList[i + 1];
+
+      if (swapNeeded) {
+        this.swapElements(i);
+        isSorted = false;
       }
-      counter++;
     }
+
+    counter++;
+
+    if(!isSorted) {
+      setTimeout(() => {
+        this.bubbleSorter(counter);
+      }, 20);
+    }
+  }
+
+  private swapElements(index: number) {
+    const swapBuffer = this.elementList[index];
+    this.elementList[index] = this.elementList[index + 1];
+    this.elementList[index + 1] = swapBuffer;
   }
 }
