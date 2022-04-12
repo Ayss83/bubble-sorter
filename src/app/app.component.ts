@@ -6,5 +6,19 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'bubble-sorter';
+  elementList: number[] = [];
+
+  populateElements(quantity: number) {
+    this.elementList = this.createElements(quantity);
+  }
+
+  createElements(quantity: number): number[] {
+    const result: number[] = [];
+
+    for(let i = 0; i < quantity; i++) {
+      result.push(Math.floor(Math.random() * 250));
+    }
+
+    return result;
+  }
 }

@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { FormComponent } from './form.component';
 
@@ -8,9 +9,9 @@ describe('FormComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FormComponent ]
-    })
-    .compileComponents();
+      imports: [ReactiveFormsModule],
+      declarations: [FormComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {
@@ -21,5 +22,36 @@ describe('FormComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  describe("requestPopulate", () => {
+    it("should emit input value with onPopulateRequest emitter", () => {
+      const spiedEmit = spyOn(component.onPopulateRequest, "emit");
+      component.populateFormGroup.setValue({elementNumber: 241});
+
+      component.requestPopulate();
+
+      expect(spiedEmit).toHaveBeenCalledTimes(1);
+      expect(spiedEmit).toHaveBeenCalledWith(241);
+    })
+  });
+
+  describe("setErrorMessage", () => {
+    it("should return message when error is present", () => {
+      component.populateFormGroup.setValue({elementNumber: component.MIN_ELEMENT - 1});
+      expect(component.setErrorMessage()).toBeTruthy();
+
+      component.populateFormGroup.setValue({elementNumber: component.MAX_ELEMENT + 1});
+      expect(component.setErrorMessage()).toBeTruthy();
+
+      component.populateFormGroup.setValue({elementNumber: null});
+      expect(component.setErrorMessage()).toBeTruthy();
+
+      component.populateFormGroup.setValue({elementNumber: component.MIN_ELEMENT});
+      expect(component.setErrorMessage()).toBeFalsy();
+
+      component.populateFormGroup.setValue({elementNumber: component.MAX_ELEMENT});
+      expect(component.setErrorMessage()).toBeFalsy();
+    });
   });
 });
